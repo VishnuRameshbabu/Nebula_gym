@@ -1,6 +1,9 @@
 <?php
 session_start();
 ?>
+<?php 
+mail('vishnuramesh200@gmail.com', 'subject', 'message');
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +25,7 @@ if(isset($sub))
 $id=$_REQUEST['admin_name'];
 $pass=$_REQUEST['admin_pwd'];
 $dbc=mysqli_connect("localhost","Alien","123","gym");
-$sel=mysqli_query($dbc,"select * from user_reg where email_id='$id'")   ;
+$sel=mysqli_query($dbc,"select * from admin_info where email_id='$id'")   ;
 $arr=mysqli_fetch_array($sel);
 if(($arr['email_id']==$id) and( $arr['password']==$pass))
   {
@@ -30,7 +33,7 @@ $user_id=$arr['user_id'];
 $first_name=$arr['first_name'];
  $_SESSION['eid']=$user_id;
  $_SESSION['name']=$first_name;
- echo "<script>location.href='user_dashboard.php'</script>";
+ echo "<script>location.href='admin_dashboard.php'</script>";
    }
 else
 {

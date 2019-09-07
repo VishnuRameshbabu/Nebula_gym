@@ -1,22 +1,48 @@
+ <?php
+ error_reporting(1);
+session_start();
+extract($_REQUEST);
+if($_REQUEST['log']=='out')
+{
+session_destroy();
+header("location:Nebula_gym.php");
+}?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-
- <!--  <script>
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var myObj = JSON.parse(this.responseText);
-    document.getElementById("demo").innerHTML = myObj[2];
-  }
-};
-xmlhttp.open("GET", "demo_file_array.php", true);
-xmlhttp.send();
-</script> -->
+	<title></title><meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <title></title>
 </head>
 
 <body>
+  <nav    class="navbar navbar-expand-sm bg-info navbar-dark">
+   <ul   a class="navbar-nav">
+    <li  a class="nav-item active">
+          <?php
+if($_SESSION['name']==True){
+    echo '<a class="nav-link" href="index_gym.html">'.$_SESSION['name'].'</a>'; }
+     else{
+ echo'<a href="index_gym.html">Login</a>';
+} ?> </li><li>
+
+<?php
+if($_SESSION['name']==True){
+    echo '<a class="nav-link" href="?log=out">Logout</a>'; } ?>
+      
+    </li>
+   <li class="nav-item active">
+      <a class="nav-link" href="user_dashboard.php"> Home</a>
+   
+    </li>
+    
+    </ul>
+</nav>
 <form	method='post' action="<?php echo $_SERVER['PHP_SELF'];?>">
 Age<input type="text" name="age" id="age"><br>
 weight<input type="text" name="weight" id="weight"><br>
@@ -27,17 +53,29 @@ allergies<input type="text" name="allergies" id="allergies"><br>
 <input type="submit" name="edit">	
 <p id='demo'></p>
 </form>
+<?php
+$user_id=$_SESSION['eid'];
+$dbc=mysqli_connect('localhost','Alien','123','gym')
+or die("error da");
+$query2="SELECT * from user_profile where user_id=$user_id";
+$result2=mysqli_query($dbc,$query2);
+$row2=mysqli_fetch_array($result2);
+if($row2!=0){
+// echo "<p>Seems like you last updated your details at <mark style= background-color:red; opacity:0.3;>".$row2['updated_at'] ."</mark></p>";
+echo "<p>Here is your details from your last update</p>";
+echo "<div class=col-lg-4 style=background-color:violet;opacity:1.0; color:pink;>";
+echo "Age:".$row2['age']."<br>";
+echo "Height:".$row2['height']."<br>";
+echo "Weight:".$row2['weight']."<br>";
+echo "Health_diseases:".$row2['health_diseases']."<br>";
+echo "Allergies:".$row2['allergies']."<br>";
+echo "</div>";
+}
+mysqli_close($dbc);
+?>
 <!-- <script type="text/javascript">
-
-	var  obj;
-	obj={ "success": { "total": 1 }, "contents": { "quotes": [ { "quote": "The tennis ball doesn't know how old I am. The ball doesn't know if I'm a man or a woman or if I come from a communist country or not. Sport has always broken down these barriers.", "length": "179", "author": "Martina Navratilova", "tags": [ "barriers", "inspire", "sports", "tod", "tod" ], "category": "inspire", "date": "2019-08-09", "permalink": "https://theysaidso.com/quote/martina-navratilova-the-tennis-ball-doesnt-know-how-old-i-am-the-ball-doesnt-kno", "title": "Inspiring Quote of the day", "background": "https://theysaidso.com/img/bgs/man_on_the_mountain.jpg", "id": "3ikYaFUvd5Gi2SIe3BacvweF" } ], "copyright": "2017-19 theysaidso.com" } };
-	var obj2=JSON.stringify(obj);
-	obj3=obj.contents.quotes[0].quote;
-document.getElementById("demo").innerHTML = obj3;
-</script> -->
-<script type="text/javascript">
 	function fetchRestaurants(callback){
-    fetch(`http://quotes.rest/qod.json?categories=management`)
+    fetch(`http://quotes.rest/qod.json?categories=tod`)
        .then(response => response.json())
        .then(json => callback(null, json.contents))
        .catch(error => callback(error, null))
@@ -50,14 +88,14 @@ fetchRestaurants((error, contents) => {
         document.getElementById("demo").innerHTML=contents.quotes[0].quote;}
 
 });
-</script>
+</script> -->
+
 </body></html>
 
-<?php 
-?>
 <?php
-error_reporting(E_ALL ^ E_WARNING);
-$user_id=1;
+error_reporting(5);
+$user_id=$_SESSION['eid'];
+
 $age=$_POST['age'];
 $height=$_POST['height'];
 $weight=$_POST['weight'];
@@ -65,46 +103,82 @@ $health_diseases=$_POST['health_diseases'];
 $allergies=$_POST['allergies'];
 $height_meters=$height/100;
 $bmi=$weight/($height_meters*$height_meters);
-echo "Your BMI is".$bmi;
-
+echo "Your BMI is ". $bmi;
 if($bmi<=18.5){
-	echo "<p> For your reference you are underweight!</p>";
-
+echo '<div class="card bg-warning text-white">
+    <div class="card-body">For your reference you are underweight!</div>
+</div>';
+echo "Its recommended that you should take up a weight gain program";
+ 
 }
 else if($bmi>18.5 and $bmi<24.9){
-	echo "<p>For your reference you are normal in terms of body weight";
+  echo '<div class="card bg-primary text-white">
+    <div class="card-body">For your reference you are normal in terms of body weight</div>
+</div>';
+  echo "<p>You can either take up a weight loss or a weight gain progam. Based on your choice</p>";
 }
 else if($bmi>25 and $bmi<29.9){
-	echo "<p>For your reference you are overweight";
-
+  echo '<div class="card bg-primary text-white">
+    <div class="card-body">For your reference you are overweight</div>
+</div>';
+	 echo "<p>Its recommended that you should take up a weight loss program</p>";
 }
 else if($bmi>30 and $bmi<39.9){
-	echo "<p>You are obese! please consider the following diet chart";
+	echo '<div class="card bg-info text-white">
+    <div class="card-body">You are obese!Please consider the prescribed diet in the user dashboard</div>
+</div>';
+  echo "<p>Its recommended that you should take up a weight loss program</p>";
 	# code...
+
+}
+else if($bmi>40){
+ 
+  echo '<div class="card bg-danger text-white">
+    <div class="card-body">You are in a serious condition! Consider consulting a doctor and come back with a health report such that a customized program will be given to you </div>
+</div>';
+
+  echo "Its recommended that you should take up a weight loss program";
+// echo $_SESSION['u_id'];
 }
 else{
-	echo "<p> You are in a serious condition! Consider consulting a doctor or else you will die </p>";
+  echo"<br>Seems like you didnt fill out the form huh?<br>";
 }
 // $decision=$_POST['decision'];
 $dbc=mysqli_connect('localhost','Alien','123','gym')
 or die("error da");
 // if($decision=='insert'){
-$query="INSERT into user_profile VALUES('$user_id','$age','$weight','$height','$health_diseases','$allergies')";
+$query="SELECT * from user_reg where user_id='$user_id'";
+  $result=mysqli_query($dbc,$query);
+  $row=mysqli_fetch_array($result);
+if($row==0){
+$query="INSERT into user_profile VALUES('$user_id','$age','$weight','$height','$health_diseases','$allergies','$bmi',NOW())";
+
 $result=mysqli_query($dbc,$query)
 or die(mysqli_error($dbc));
-if(!$result){
-echo "If there is not  any errors then you are good to go";}
+}else{
+$query=
+"UPDATE `user_profile` SET age='$age',weight='$weight',height='$height',health_diseases='$health_diseases',allergies='$allergies',bmi=$bmi,updated_at=NOW() where user_id='$user_id'";
 
+// "UPDATE into user_profile VALUES('$user_id','$age','$weight','$height','$health_diseases','$allergies','$bmi')";
 
+$result=mysqli_query($dbc,$query)
+or die(mysqli_error($dbc));
+}
+// $query2="SELECT * from user_profile where user_id=$user_id";
+// $result2=mysqli_query($dbc,$query2);
+// $row2=mysqli_fetch_array($result2);
+// if($row2!=0){
+// // echo "<p>Seems like you last updated your details at <mark style= background-color:red; opacity:0.3;>".$row2['updated_at'] ."</mark></p>";
+// echo "<p>Here is your details from your last update</p>";
+// echo "<div class=col-lg-4 style=background-color:violet;opacity:1.0; color:pink;>";
+// echo "Age:".$row2['age']."<br>";
+// echo "Height:".$row2['height']."<br>";
+// echo "Weight:".$row2['weight']."<br>";
+// echo "Health_diseases:".$row2['health_diseases']."<br>";
+// echo "Allergies:".$row2['allergies']."<br>";
+// echo "</div>";
 // }
-// else if ($decision=='edit'){
-// 	$query="UPDATE table user_profile VALUES('$user_id','$age',$weight','$height','health_diseases','$allegies')";
-// $result=mysqli_query($dbc,$query)
-// or die("sorry some server error");
-// echo "If there arent any errors then you are good to go";
-
-// }
-// else{
+mysqli_close($dbc);
 
 // }
 ?>

@@ -44,16 +44,6 @@ $password_re=mysqli_real_escape_string($dbc,trim($_POST['password2']));
 $first_name=mysqli_real_escape_string($dbc,trim($_POST['first_name']));
 $last_name=mysqli_real_escape_string($dbc,trim($_POST['last_name']));
 $city=mysqli_real_escape_string($dbc,trim($_POST['city']));
-$locality_address=mysqli_real_escape_string($dbc,trim($_POST['locality_address']));
-$date_of_birth=mysqli_real_escape_string($dbc,trim($_POST['date_of_birth']));
-$state=mysqli_real_escape_string($dbc,trim($_POST['state']));
-$gender=mysqli_real_escape_string($dbc,trim($_POST['gender']));
-$phone_no=mysqli_real_escape_string($dbc,trim($_POST['phone_no']));
-$email_id=mysqli_real_escape_string($dbc,trim($_POST['email_id']));
-if(!empty($password) and !empty($password_re) and ($password==$password_re))
-{ 
-  $query="SELECT * from user_reg where email_id='$email_id'";
-  $result=mysqli_query($dbc,$query);
   $row=mysqli_fetch_array($result);
   if($row==0){
     $query="INSERT into user_reg(first_name,last_name,password,gender,date_of_birth,phone_number,email_id,address,city,state) VALUES('$first_name','$last_name','$password','$gender', '$date_of_birth','$phone_no','$email_id','$locality_address','$city','$state')";

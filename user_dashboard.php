@@ -18,6 +18,23 @@ header("location:Nebula_gym.php");
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<title></title>
+
+<!--   <script type="text/javascript">
+  function fetchRestaurants(callback){
+    fetch(`http://quotes.rest/qod.json?categories=tod`)
+       .then(response => response.json())
+       .then(json => callback(null, json.contents))
+       .catch(error => callback(error, null))
+}
+fetchRestaurants((error, contents) => {
+    if (error) 
+        console.log(error)
+    else {
+        console.log(contents.quotes[0].quote)
+        document.getElementById("demo").innerHTML=contents.quotes[0].quote;}
+
+});
+</script> -->
 	<style>
     span {
     display: inline-block;
@@ -31,8 +48,8 @@ header("location:Nebula_gym.php");
       height: 100%;
   }
   </style>
+<!-- document.getElementById("demo").innerHTML -->
 </head>
-
 <body style="background-image:url(gym_photos/login_page.jpg);  background-repeat: no-repeat;
    background-size: cover;">
 
@@ -45,20 +62,41 @@ if($_SESSION['name']==True){
      else{
  echo'<a href="index_gym.html">Login</a>';
 } ?> </li><li>
-<!--   <a href="#cart">Cart</a> -->
+
 <?php
 if($_SESSION['name']==True){
     echo '<a class="nav-link" href="?log=out">Logout</a>'; } ?>
       
     </li>
    <li class="nav-item active">
-      <a class="nav-link" href="Nebula_gym.html"> Home</a>
-   
+      <a class="nav-link" href="Nebula_gym.php"> Home</a>
     </li>
     
     </ul>
-</nav> <p id="demo" style="font-weight:all; background-color: black; font-family:Verdana;color:pink; " > All courses of action are risky, so prudence is not in avoiding danger (it’s impossible), but calculating risk and acting decisively. Make mistakes of ambition and not mistakes of sloth. Develop the strength to do bold things, not the strength to suffer. </p>
-
+</nav> 
+<p id="demo" class="quote" name="quote" style="font-weight:all; font-family:Verdana;color:pink;opacity: 0.7;"></p>
+  <center><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Quote for the day</button></center>
+  <div id="demo" class="collapse">
+    <div class="col-sm-12" style=" background-color: black;">
+    
+  <script type="text/javascript">
+  function fetchRestaurants(callback){
+    fetch(`http://quotes.rest/qod.json?categories=tod`)
+       .then(response => response.json())
+       .then(json => callback(null, json.contents))
+       .catch(error => callback(error, null))
+}
+fetchRestaurants((error, contents) => {
+    if (error) 
+        console.log(error)
+    else {
+        console.log(contents.quotes[0].quote)
+        document.getElementsByTagName("p")[0].innerHTML=contents.quotes[0].quote;} 
+});
+</script>
+<!-- <p id="demo" class="quote" name="quote" style="font-weight:all; font-family:Verdana;color:pink;opacity: 0.7;"></p> -->
+    </div>
+  </div>
 <div class="col-sm-2" style="background-color:white; padding: 15PX; opacity:0.5;"><br><br><br><br><!-- <div class="col-sm-12" style="background-color:pink;" --><a href="user_profile.php" style="font-weight:all; font-family:Verdana;color:black;"><span class="rounded-sm" >User Profile  </span></a>
 <!-- </div> -->
 <br><br><br><br><br><br>
@@ -67,3 +105,4 @@ if($_SESSION['name']==True){
 
 </body>
 </html>
+<!-- getElementsByTagName always return an array da boi! -->

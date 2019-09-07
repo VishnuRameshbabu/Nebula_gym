@@ -25,7 +25,9 @@ if(($arr['email_id']==$id) and( $arr['password']==$pass))
   {
 $user_id=$arr['user_id'];
 $first_name=$arr['first_name'];
- $_SESSION['eid']=$user_id;
+$emaili_id=$arr['email_id'];
+$_SESSION['eid']=$arr['user_id'];
+ $_SESSION['emailid']=$emaili_id;
  $_SESSION['name']=$first_name;
  echo "<script>location.href='user_dashboard.php'</script>";
    }
