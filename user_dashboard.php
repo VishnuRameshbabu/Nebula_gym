@@ -74,7 +74,7 @@ if($_SESSION['name']==True){
     
     </ul>
 </nav> 
-<p id="demo" class="quote" name="quote" style="font-weight:all; font-family:Verdana;color:pink;opacity: 0.7;"></p>
+<p id="demo" class="quote" name="quote" style="font-weight:all; font-family:Verdana;color:white; text-shadow: 1px 1px 2px black"></p>
   <center><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Quote for the day</button></center>
   <div id="demo" class="collapse">
     <div class="col-sm-12" style=" background-color: black;">
@@ -97,10 +97,10 @@ fetchRestaurants((error, contents) => {
 <!-- <p id="demo" class="quote" name="quote" style="font-weight:all; font-family:Verdana;color:pink;opacity: 0.7;"></p> -->
     </div>
   </div>
-<div class="col-sm-2" style="background-color:white; padding: 15PX; opacity:0.5;"><br><br><br><br><!-- <div class="col-sm-12" style="background-color:pink;" --><a href="user_profile.php" style="font-weight:all; font-family:Verdana;color:black;"><span class="rounded-sm" >User Profile  </span></a>
+<div class="col-sm-2" style="background-color:white;  padding: 15PX; opacity:0.5;"><br><br><br><br><!-- <div class="col-sm-12" style="background-color:pink;" --><a href="user_profile.php" style="font-weight:all; font-family:Verdana;color:black;"><span class="rounded-sm" >User Profile  </span></a>
 <!-- </div> -->
 <br><br><br><br><br><br>
-<a href="user_profile.php" style="font-weight:all; font-family:Verdana;color:black;"><span class="rounded-sm" >Workout Suggestion </span></a>
+<a href="workout_suggestion.php" style="font-weight:all; font-family:Verdana;color:black;"><span class="rounded-sm" >Workout Suggestion </span></a>
 <br><br><br><br><br><br><a href="user_profile.php" style="font-weight:all; font-family:Verdana;color:black;"><span class="rounded-sm" >Diet Consultancy  </span></a><br><br><br><br><br></div>
 
 </body>

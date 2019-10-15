@@ -34,7 +34,7 @@
 
 	<nav    class="navbar navbar-expand-sm bg-info navbar-dark">
    <ul   a class="navbar-nav"><br>
-    <li  a class="nav-item active"><a class="nav-link"  href=index_gym.html> Login</li><?php
+    <li  a class="nav-item active"><a class="nav-link"  href=index_gym.html>Login</li><?php
      //if($_SESSION['name']==True){
     //echo '<a class="nav-link" href="admin_dashboard.php">'.$_SESSION['name'].'</a>'; }
      //else{

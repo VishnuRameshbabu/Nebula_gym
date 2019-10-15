@@ -33,6 +33,10 @@ header("location:Nebula_gym.php");
   </style>
 <!-- document.getElementById("demo").innerHTML -->
 </head>
+<?php
+$gym_id=$_GET['id'];
+$user_id=$_SESSION['userid'];
+ ?>
 <body style="background-image:url(gym_photos/login_page.jpg);  background-repeat: no-repeat;
    background-size: cover;">
 
@@ -57,40 +61,29 @@ if($_SESSION['name']==True){
     
     </ul>
 </nav>
-<div class="container">
-    <div class="col-lg-12 " style="color: white;font-family: Verdana; font-size:20px;" >Users</div><br><br>
-    <?php
 
-$dbc=mysqli_connect("localhost","Alien","123","gym"); 
-$query="SELECT * from user_reg ";
-$result=mysqli_query($dbc,$query);
-?>
-           
-  <table class="table table-dark ">
-    <thead>
-      <tr>
-        <th>user id</th>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>email id</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-   <?php 
-while($row=mysqli_fetch_array($result)){
- echo' <tbody>
-      <tr>
-        <td>'.$row['user_id'] .'</td>
-        <td>'.$row['first_name'] .'</td>
-        <td>'.$row['last_name'] .'</td>
-        <th>'.$row['email_id'].'</th>
-        <th> <a href="delete_admin_users.php?id='.$row['user_id'] .'">remove</a> </th>
-        <th> <a href="view_users_info.php?id='.$row['user_id'] .'">view</a> </th>
-      </tr> </tbody>';
 
-}
+<?php
+if(isset($_POST['submit'])){
+  if($_POST['confirm']=='Yes'){
+    $gyms_id=$_POST['ids'];
+ $dbc=mysqli_connect("localhost","Alien","123","gym"); 
+ $query="DELETE from user_reg where user_id=$gyms_id";
+    mysqli_query($dbc,$query);
+    echo '<p  style="font-weight:all; font-family:Verdana;color:white; text-shadow: 1px 1px 2px black;> Removed successfully</p>';
+  }
+  else{ 
+    echo '<p  style="font-weight:all; font-family:Verdana;color:white; text-shadow: 1px 1px 2px black>  failed </p>';
+  }}?>
+
+  <?php
+echo '<form method="post" action="'.$_SERVER['PHP_SELF'].'">';
+echo '<input type="radio" name="confirm" value="Yes"/>Yes</br />';
+echo '<input type="radio" name="confirm" value="No" checked="checked"/>No<br />';
+echo '<input type="submit" value="Submit" name="submit" /><br /> ';
+echo '<input type=hidden name="ids" value="'.$gym_id.'" /><br />'; 
+echo '</form>';
+
 ?>
-  </table>
-</div>
 </body>
+</html>

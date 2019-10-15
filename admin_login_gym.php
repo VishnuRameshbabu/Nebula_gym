@@ -1,9 +1,6 @@
 <?php
 session_start();
 ?>
-<?php 
-mail('vishnuramesh200@gmail.com', 'subject', 'message');
- ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

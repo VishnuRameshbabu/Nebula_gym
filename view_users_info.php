@@ -33,6 +33,10 @@ header("location:Nebula_gym.php");
   </style>
 <!-- document.getElementById("demo").innerHTML -->
 </head>
+<?php
+$gym_id=$_GET['id'];
+$user_id=$_SESSION['userid'];
+ ?>
 <body style="background-image:url(gym_photos/login_page.jpg);  background-repeat: no-repeat;
    background-size: cover;">
 
@@ -57,40 +61,36 @@ if($_SESSION['name']==True){
     
     </ul>
 </nav>
+<br><br><br><br><br><br>
+<?php $dbc=mysqli_connect("localhost","Alien","123","gym");
+$query="SELECT * from user_reg";
+$sel=mysqli_query($dbc,$query);
+$result=mysqli_fetch_array($sel) ?>
 <div class="container">
-    <div class="col-lg-12 " style="color: white;font-family: Verdana; font-size:20px;" >Users</div><br><br>
-    <?php
-
-$dbc=mysqli_connect("localhost","Alien","123","gym"); 
-$query="SELECT * from user_reg ";
-$result=mysqli_query($dbc,$query);
-?>
-           
-  <table class="table table-dark ">
+<table class="table table-dark table-hover">
     <thead>
       <tr>
-        <th>user id</th>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>email id</th>
-        <th></th>
-        <th></th>
+        <th>User-ID</th>
+        <th>FirstName</th>
+        <th>Last Name</th>
+        <th>email address</th>
+        <th>phone number</th>
+
+        <th>address</th>
       </tr>
     </thead>
-   <?php 
-while($row=mysqli_fetch_array($result)){
- echo' <tbody>
+    <tbody>
+     <?php
+      echo' <tbody>
       <tr>
-        <td>'.$row['user_id'] .'</td>
-        <td>'.$row['first_name'] .'</td>
-        <td>'.$row['last_name'] .'</td>
-        <th>'.$row['email_id'].'</th>
-        <th> <a href="delete_admin_users.php?id='.$row['user_id'] .'">remove</a> </th>
-        <th> <a href="view_users_info.php?id='.$row['user_id'] .'">view</a> </th>
-      </tr> </tbody>';
+        <td>'.$result['user_id'] .'</td>
+        <td>'.$result['first_name'].'&nbsp;</td><td>'. $result['last_name'] .'</td>
+                    <td>'.$result['email_id'] .'</td>
+                    <td>'.$result['phone_number'].'&nbsp;'.'&nbsp;'.$result['alternate_phone_number'] .'</td>
+                          <td>'.$result['locality_address'] .'&nbsp;'. $result['state'] .'</td>
 
-}
-?>
+      </tr>';
+     ?>
+    </tbody>
   </table>
 </div>
-</body>

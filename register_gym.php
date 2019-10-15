@@ -58,7 +58,7 @@ $city=mysqli_real_escape_string($dbc,trim($_POST['city']));
   
   $username="";}
 } 
-}
+
 mysqli_close($dbc);
 ?>
 
